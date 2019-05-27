@@ -40,7 +40,7 @@ class CheckMilk {
   constructor(milkInStorege) {
     this.milk = milkInStorege;
   }
-   add (milk) {
+   addMilk (milk) {
     if(this.milk >= milk) {
       return true;
     } else {
@@ -63,7 +63,7 @@ class CoffeeMachine {
     
     let boilWater = new CheckWater(this.water).boil(coffeeType.water);
     let grindCoffeeBeans = new CheckCoffeeBeans(this.coffeeBeans).grind(coffeeType.coffeeBeans);
-    let addMilk = new CheckMilk(this.milk).add(coffeeType.milk);
+    let addMilk = new CheckMilk(this.milk).addMilk(coffeeType.milk);
 
     let makeCoffee = boilWater && grindCoffeeBeans && addMilk ? 'is done' : `can't be done`;
     
