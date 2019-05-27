@@ -6,51 +6,49 @@ let latte = {
 }
 
 class CheckWater {
-  constructor(waterInStorege) {
-    this.water = waterInStorege;
-  }
-  
-  boil (water) {
-    if(this.water >= water) {
-      return true;
-    } else {
-      console.log(`There isn't enough water. Please refill it`);
-      return false;
+    constructor(waterInStorege) {
+        this.water = waterInStorege;
     }
-  }
+
+    boil (water) {
+        if(this.water >= water) {
+            return true;
+        } else {
+            console.log(`There isn't enough water. Please refill it`);
+            return false;
+        }
+    }
 }
 
 class CheckCoffeeBeans {
-  constructor(coffeeBeansInStorege) {
-    this.coffeeBeans = coffeeBeansInStorege;
-  }
-  
-  grind (coffeeBeans) {
-    if(this.coffeeBeans >= coffeeBeans) {
-      return true;
-    } else {
-      console.log(`There isn't enough coffeeBeans. Please refill it`);
-      return false;
+    constructor(coffeeBeansInStorege) {
+        this.coffeeBeans = coffeeBeansInStorege;
     }
-  }
+
+    grind (coffeeBeans) {
+        if(this.coffeeBeans >= coffeeBeans) {
+            return true;
+        } else {
+            console.log(`There isn't enough coffeeBeans. Please refill it`);
+            return false;
+        }
+    }
 }
 
 class CheckMilk {
-  
-  constructor(milkInStorege) {
-    this.milk = milkInStorege;
-  }
-   addMilk (milk) {
-    if(this.milk >= milk) {
-      return true;
-    } else {
-      console.log(`There isn't enough coffeeBeans. Please refill it`);
-      return false;
+    constructor(milkInStorege) {
+        this.milk = milkInStorege;
     }
-   }
+
+    addMilk (milk) {
+        if(this.milk >= milk) {
+            return true;
+        } else {
+            console.log(`There isn't enough coffeeBeans. Please refill it`);
+            return false;
+        }
+    }
 }
-
-
 
 class CoffeeMachine {
    constructor() {
@@ -80,7 +78,7 @@ class CoffeeMachine {
     this.coffeeBeans = 500;
     this.milk = 300;
     console.log('All the components are refilled');
-  }
+    }
 }
 
 const myCoffeeMaker = new CoffeeMachine();
