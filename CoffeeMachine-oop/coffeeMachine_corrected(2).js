@@ -1,8 +1,8 @@
  
 class WaterController {
-    constructor() {
+    constructor(waterCapacity) {
         this.maxCapacity = 1000; 
-        this.water = 1000;
+        this.water = waterCapacity;
     }
 
     decrement (water) {
@@ -24,9 +24,9 @@ class WaterController {
 }
   
 class CoffeeBeansController {
-    constructor() {
+    constructor(coffeeBeansCapacity) {
         this.maxCapacity = 100; 
-        this.coffeeBeans = 100;
+        this.coffeeBeans = coffeeBeansCapacity;
     }
 
     decrement (coffeeBeans) {
@@ -48,9 +48,9 @@ class CoffeeBeansController {
 }
   
 class MilkController {
-    constructor() {
+    constructor(milkCapacity) {
         this.maxCapacity = 500; 
-        this.milk = 500;
+        this.milk = milkCapacity;
     }
 
     decrement (milk) {
@@ -72,10 +72,10 @@ class MilkController {
 }
   
 class CoffeeMachine {
-    constructor() {
-        this.waterController = new WaterController(); 
-        this.coffeeBeansController = new CoffeeBeansController();
-        this.milkController = new MilkController();
+    constructor(waterController, coffeeBeansController, milkController) {
+        this.waterController = waterController; 
+        this.coffeeBeansController = coffeeBeansController;
+        this.milkController = milkController;
     }
 
     _canMakeCoffee (coffeeType) {
@@ -150,13 +150,13 @@ class CoffeeMachine {
     }
 }
   
-const myCoffeeMachine = new CoffeeMachine();
+const myCoffeeMachine = new CoffeeMachine(new WaterController(1000), new CoffeeBeansController(100), new MilkController(500));
   
-  myCoffeeMachine.makeLatte();
-  myCoffeeMachine.makeLatte();
-  myCoffeeMachine.makeLatte();
-  myCoffeeMachine.makeLatte();
-  myCoffeeMachine.refillMilk();
-  myCoffeeMachine.makeLatte();
-  myCoffeeMachine.makeAmericano();
-  myCoffeeMachine.makeEspresso();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.refillMilk();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeAmericano();
+myCoffeeMachine.makeEspresso();
