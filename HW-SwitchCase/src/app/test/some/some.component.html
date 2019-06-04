@@ -1,0 +1,34 @@
+<!--<p>
+  some works!
+</p>
+<input type="text" placeholder="name" #inputName>
+<input type="text" placeholder="age" #inputAge>
+
+<button (click)="onAddUser(inputName.value, inputAge.value)">Add user</button>
+<ul>
+  <li *ngFor="let user of arrayUsers">
+    <p [ngClass]="{'textClass': toggleClass}" [ngStyle]="{'font-weight': textWeight}">
+      {{user.name}}
+    </p>
+  </li>
+</ul>
+<button (click)="onToggle()">Toggle</button>-->
+
+<h3>HW SwitchCase<h3>
+
+<div class="contaiter">
+  <input type="text" placeholder="Please enter color" #inputPickColor>
+  <button (click)="onPickColor(inputPickColor.value)">Pick</button>
+
+  <ul [ngSwitch]="color">
+    <li *ngSwitchCase="''">Please enter color</li>
+    <li *ngSwitchCase="'red'" style="color: red">You entered red color</li>
+    <li *ngSwitchCase="'blue'" style="color: blue">You entered blue color</li>
+    <li *ngSwitchCase="'green'" style="color: green">You entered green color</li>
+    <li *ngSwitchCase="'yellow'" style="color: yellow">You entered yellow color</li>
+    <li *ngSwitchCase="'pink'" style="color: pink">You entered pink color</li>
+    <li *ngSwitchCase="'orange'" style="color: orange">You entered orange color</li>
+    <li *ngSwitchDefault>Pick again</li>
+  </ul>
+</div>
+

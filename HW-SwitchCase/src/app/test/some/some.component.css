@@ -1,0 +1,14 @@
+.test-class {
+    font-size: 30px;
+}
+
+li {
+    list-style-type: none;
+    font-size: 16px;
+    padding: 0;
+}
+
+ul {
+    padding: 0;
+}
+
