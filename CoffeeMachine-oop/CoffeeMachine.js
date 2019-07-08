@@ -1,90 +1,162 @@
-let latte = {
-    name: 'latte',
-    water: 50,
-    coffeeBeans: 7,
-    milk: 150
-}
-  
-let americano = {
-    name: 'americano',
-    water: 100,
-    coffeeBeans: 14,
-    milk: 0
-}
-
-let espresso = {
-    name: 'espresso',
-    water: 30,
-    coffeeBeans: 7,
-    milk: 0
-}
-  
-class CoffeeMachine {
-    constructor() {
-        this.water = 1000;
-        this.coffeeBeans = 500;
-        this.milk = 300;
+ 
+class WaterController {
+    constructor(waterCapacity) {
+        this.maxCapacity = 1000; 
+        this.water = waterCapacity;
     }
-      
-    _checkWater(coffeeType) {
-        if (this.water >= coffeeType.water) {
+
+    decrement (water) {
+        this.water -= water; 
+    }
+
+    refill() {
+        this.water += (this.maxCapacity - this.water); 
+    }
+
+    boil (water) {
+        if(this.water >= water) {
             return true;
         } else {
             console.log(`There isn't enough water. Please refill it`);
             return false;
         }
     }
-    
-    _checkCoffeeBeans(coffeeType) {
-        if (this.coffeeBeans >= coffeeType.coffeeBeans) {
+}
+  
+class CoffeeBeansController {
+    constructor(coffeeBeansCapacity) {
+        this.maxCapacity = 100; 
+        this.coffeeBeans = coffeeBeansCapacity;
+    }
+
+    decrement (coffeeBeans) {
+        this.coffeeBeans -= coffeeBeans; 
+    }
+
+    refill() {
+        this.coffeeBeans += (this.maxCapacity - this.coffeeBeans); 
+    }
+
+    grind (coffeeBeans) {
+        if(this.coffeeBeans >= coffeeBeans) {
             return true;
         } else {
-            console.log(`There isn't enough coffee beans. Please refill it`);
+            console.log(`There isn't enough coffeeBeans. Please refill it`);
             return false;
         }
     }
-    
-    _checkMilk(coffeeType) {
-        if (this.milk >= coffeeType.milk) {
+}
+  
+class MilkController {
+    constructor(milkCapacity) {
+        this.maxCapacity = 500; 
+        this.milk = milkCapacity;
+    }
+
+    decrement (milk) {
+        this.milk -= milk; 
+    }
+
+    refill() {
+        this.milk += (this.maxCapacity - this.milk); 
+    }
+
+    addMilk (milk) {
+        if(this.milk >= milk) {
             return true;
         } else {
             console.log(`There isn't enough milk. Please refill it`);
             return false;
         }
     }
+}
   
-    _canMakeCoffe(coffeeType) {
-        if (this._checkWater(coffeeType) && this._checkCoffeeBeans(coffeeType) && this._checkMilk(coffeeType) ) {
-            return true;
+class CoffeeMachine {
+    constructor(waterController, coffeeBeansController, milkController) {
+        this.waterController = waterController; 
+        this.coffeeBeansController = coffeeBeansController;
+        this.milkController = milkController;
+    }
+
+    _canMakeCoffee (coffeeType) {
+        let boilWater = this.waterController.boil(coffeeType.water);
+        let grindCoffeeBeans = this.coffeeBeansController.grind(coffeeType.coffeeBeans);
+        let addMilk = this.milkController.addMilk(coffeeType.milk);
+
+        return boilWater && grindCoffeeBeans && addMilk ? true : false;
+    }
+
+    _decrementIngridients(coffeeType) {
+        this.waterController.decrement(coffeeType.water);
+        this.coffeeBeansController.decrement(coffeeType.coffeeBeans);
+        this.milkController.decrement(coffeeType.milk);
+    }
+
+    makeLatte() {
+        let latte = {
+            name: 'latte',
+            water: 50,
+            coffeeBeans: 7,
+            milk: 150
+        }
+
+        if (this._canMakeCoffee(latte)) {
+            console.log(`Your ${latte.name} is done`); 
+            this._decrementIngridients(latte);    
         } else {
-            return false;
+            console.log(`Your ${latte.name} can't be done`); 
         }
     }
-    
-    makeCoffee(coffeeType) {
-        if(this._canMakeCoffe(coffeeType)) {
-            console.log(`Your ${coffeeType.name} is ready`);
 
-            this.water = this.water - coffeeType.water;
-            this.coffeeBean = this.coffeeBean - coffeeType.coffeeBeans;
-            this.milk = this.milk - coffeeType.milk;
-        } 
+    makeEspresso() {
+        let espresso = {
+            name: 'espresso',
+            water: 30,
+            coffeeBeans: 7,
+            milk: 0
+        }
+
+        if (this._canMakeCoffee(espresso)) {
+            console.log(`Your ${espresso.name} is done`); 
+            this._decrementIngridients(espresso); 
+        }
     }
 
-    refillComponents() {
-        this.water = 1000;
-        this.coffeeBeans = 500;
-        this.milk = 300;
-       console.log('All the components are refilled')
+    makeAmericano() {
+        let americano = {
+            name: 'americano',
+            water: 100,
+            coffeeBeans: 14,
+            milk: 0
+        }
+
+        if (this._canMakeCoffee(americano)) {
+            console.log(`Your ${americano.name} is done`); 
+            this._decrementIngridients(americano); 
+        }
+
     }
-      
-  }
+
+    refillWater() {
+        this.waterController.refill();
+    }
+
+    refillcoffeeBeansController() {
+        this.coffeeBeansController.refill();
+    }
+
+    refillMilk() {
+        this.milkController.refill();
+    }
+}
   
-var coffeeMachine = new CoffeeMachine();
-coffeeMachine.makeCoffee(latte);
-coffeeMachine.makeCoffee(americano);  
-coffeeMachine.makeCoffee(latte);  
-coffeeMachine.makeCoffee(latte);
-coffeeMachine.refillComponents();
-coffeeMachine.makeCoffee(latte);
-coffeeMachine.makeCoffee(latte);
+const myCoffeeMachine = new CoffeeMachine(new WaterController(1000), new CoffeeBeansController(100), new MilkController(500));
+  
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.refillMilk();
+myCoffeeMachine.makeLatte();
+myCoffeeMachine.makeAmericano();
+myCoffeeMachine.makeEspresso();
